@@ -1,0 +1,87 @@
+# .github/workflows/sfdc-metadiff.yml
+# Runs sfdc-metadiff on every push to main.
+#
+# Three job variants -- keep the one that matches your setup, delete the others:
+#   sfdc-metadiff-stdout  : no credentials needed; prints MDIF to the Actions log
+#   sfdc-metadiff-notion  : writes to your Salesforce Metadata Wiki (raw mode)
+#   sfdc-metadiff-webhook : POSTs MDIF JSON to any HTTP endpoint
+#
+# Required secrets (repo Settings -> Secrets -> Actions):
+#   NOTION_TOKEN    -- for the notion job
+#   WEBHOOK_URL     -- for the webhook job
+
+name: sfdc-metadiff
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'force-app/**'
+      - 'src/**'
+
+jobs:
+
+  # Variant 1: stdout only -- no credentials needed.
+  # Prints the full MDIF document to the Actions log.
+  sfdc-metadiff-stdout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run sfdc-metadiff
+        run: node src/cli.js --compact
+
+  # Variant 2: MDIF -> Notion raw mode (no Claude key required).
+  # Requires: NOTION_TOKEN secret.
+  sfdc-metadiff-notion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci && npm install @notionhq/client
+      - name: Run sfdc-metadiff -> Notion
+        env:
+          NOTION_TOKEN: $ secrets.NOTION_TOKEN 
+        run: node scripts/run-notion.js --raw
+
+  # Variant 3: MDIF -> webhook JSON payload.
+  # Requires: WEBHOOK_URL secret.
+  sfdc-metadiff-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run sfdc-metadiff -> webhook
+        env:
+          WEBHOOK_URL: $ secrets.WEBHOOK_URL 
+        run: |
+          node scripts/run-webhook.js \
+            --url "$WEBHOOK_URL" \
+            --mode json \
+            --compact

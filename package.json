@@ -1,0 +1,47 @@
+{
+  "name": "sfdc-metadiff",
+  "version": "0.1.0",
+  "description": "Salesforce metadata diff tool that produces LLM-friendly MDIF output from any DevOps source.",
+  "keywords": [
+    "salesforce",
+    "sfdc",
+    "sfdx",
+    "metadata",
+    "diff",
+    "mdif",
+    "llm",
+    "devops",
+    "notion",
+    "gearset",
+    "copado"
+  ],
+  "license": "MIT",
+  "author": "Ben Noffsinger",
+  "version": "0.1.0",
+  "main": "src/cli.js",
+  "bin": {
+    "sfdc-metadiff": "./src/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "echo \"No automated tests yet -- use manual mode: node src/cli.js --manual test-data/old test-data/new\" && exit 0"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.3.0"
+  },
+  "optionalDependencies": {
+    "@notionhq/client": "^2.2.15",
+    "@anthropic-ai/sdk": "^0.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noffsingercb/sfdc-metadiff.git"
+  },
+  "homepage": "https://github.com/noffsingercb/sfdc-metadiff#readme",
+  "bugs": {
+    "url": "https://github.com/noffsingercb/sfdc-metadiff/issues"
+  }
+}

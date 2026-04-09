@@ -1,0 +1,41 @@
+MDIF_VERSION: 0.1
+GENERATED_AT: 2026-04-08T00:51:09.525Z
+BLOCK_COUNT: 1
+---
+CHANGE_TYPE: MODIFIED
+COMPONENT_TYPE: Custom Field
+METADATA_TYPE: CustomField
+API_NAME: Status__c
+PARENT_OBJECT: Account
+SEMANTIC_CHANGES:
+  [MODIFIED] required: false → true
+  [MODIFIED] description: Tracks account status → Tracks account lifecycle status for reporting
+  [MODIFIED] trackHistory: false → true
+  [ADDED] picklist_value:"Pending": not default
+RAW_DIFF:
+  @@ -3,9 +3,9 @@
+       <fullName>Status__c</fullName>
+       <label>Status</label>
+       <type>Picklist</type>
+  -    <required>false</required>
+  -    <description>Tracks account status</description>
+  -    <trackHistory>false</trackHistory>
+  +    <required>true</required>
+  +    <description>Tracks account lifecycle status for reporting</description>
+  +    <trackHistory>true</trackHistory>
+       <valueSet>
+           <valueSetDefinition>
+               <value>
+  @@ -18,6 +18,11 @@
+                   <label>Inactive</label>
+                   <default>false</default>
+               </value>
+  +            <value>
+  +                <fullName>Pending</fullName>
+  +                <label>Pending</label>
+  +                <default>false</default>
+  +            </value>
+           </valueSetDefinition>
+       </valueSet>
+   </CustomField>
+---
