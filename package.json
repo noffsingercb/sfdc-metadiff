@@ -3,21 +3,11 @@
   "version": "0.1.0",
   "description": "Salesforce metadata diff tool that produces LLM-friendly MDIF output from any DevOps source.",
   "keywords": [
-    "salesforce",
-    "sfdc",
-    "sfdx",
-    "metadata",
-    "diff",
-    "mdif",
-    "llm",
-    "devops",
-    "notion",
-    "gearset",
-    "copado"
+    "salesforce", "sfdc", "sfdx", "metadata", "diff",
+    "mdif", "llm", "devops", "notion", "gearset", "copado"
   ],
   "license": "MIT",
   "author": "Ben Noffsinger",
-  "version": "0.1.0",
   "main": "src/cli.js",
   "bin": {
     "sfdc-metadiff": "./src/cli.js"
@@ -27,14 +17,17 @@
   },
   "scripts": {
     "start": "node src/cli.js",
+    "mcp": "node src/mcp-server.js",
+    "mcp:http": "MCP_HTTP=1 node src/mcp-server.js",
     "test": "echo \"No automated tests yet -- use manual mode: node src/cli.js --manual test-data/old test-data/new\" && exit 0"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "fast-xml-parser": "^4.3.0"
   },
   "optionalDependencies": {
-    "@notionhq/client": "^2.2.15",
-    "@anthropic-ai/sdk": "^0.20.0"
+    "@anthropic-ai/sdk": "^0.20.0",
+    "@notionhq/client": "^2.2.15"
   },
   "repository": {
     "type": "git",

@@ -105,5 +105,51 @@ function getChangedFilesManual(oldDir, newDir) {
 
   return entries;
 }
+// getChangedFilesByRef -- like getChangedFiles but accepts arbitrary git refs.
+// Used by the MCP server's diff_git_refs tool.
+function getChangedFilesByRef(repoRoot, opts = {}) {
+  const { from = 'HEAD~1', to = 'HEAD' } = opts;
+  const { execSync } = require('child_process');
+  const fs = require('fs');
 
-module.exports = { getChangedFiles, getChangedFilesManual };
+  // Get list of changed files between refs
+  let diffOutput;
+  try {
+    diffOutput = execSync(
+      `git diff --name-status "${from}" "${to}"`,
+      { cwd: repoRoot, encoding: 'utf8' }
+    );
+  } catch (e) {
+    throw new Error(`[git] diff failed: ${e.message}`);
+  }
+
+  const lines = diffOutput.trim().split('\n').filter(Boolean);
+  const results = [];
+
+  for (const line of lines) {
+    const [statusCode, ...pathParts] = line.split('\t');
+    const filePath = path.join(repoRoot, pathParts[pathParts.length - 1]);
+    const status   = statusCode.startsWith('A') ? 'A' : statusCode.startsWith('D') ? 'D' : 'M';
+    const gitRel   = pathParts[pathParts.length - 1];
+
+    let oldContent = null;
+    let newContent = null;
+
+    try {
+      if (status !== 'A') {
+        oldContent = execSync(`git show "${from}":"${gitRel}"`, { cwd: repoRoot, encoding: 'utf8' });
+      }
+      if (status !== 'D') {
+        newContent = execSync(`git show "${to}":"${gitRel}"`, { cwd: repoRoot, encoding: 'utf8' });
+      }
+    } catch (e) {
+      console.warn(`[git] Could not read content for ${gitRel}: ${e.message}`);
+      continue;
+    }
+
+    results.push({ filePath, status, oldContent, newContent });
+  }
+
+  return results;
+}
+module.exports = { getChangedFiles, getChangedFilesManual, getChangedFilesByRef };
