@@ -29,14 +29,22 @@ const repoRoot   = process.cwd();
 // from a Salesforce metadata filename.
 // ---------------------------------------------------------------------------
 function resolveMetadata(filePath) {
-  const basename = path.basename(filePath);
-  const parts    = basename.split('.');
+  const normalized = filePath.replace(/\\/g, '/');
+  const basename   = path.basename(normalized);
+  const parts      = basename.split('.');
 
-  if (basename.endsWith('field-meta.xml'))          return { apiName: parts[1], parentObject: parts[0], metadataType: 'CustomField' };
-  if (basename.endsWith('validationRule-meta.xml'))  return { apiName: parts[1], parentObject: parts[0], metadataType: 'ValidationRule' };
-  if (basename.endsWith('flow-meta.xml'))            return { apiName: parts[0], parentObject: '',       metadataType: 'Flow' };
-  if (basename.endsWith('.cls'))                     return { apiName: parts[0], parentObject: '',       metadataType: 'ApexClass' };
-  if (basename.endsWith('.trigger'))                 return { apiName: parts[0], parentObject: '',       metadataType: 'ApexTrigger' };
+  // Decomposed child metadata (fields, validation rules, etc.) is named
+  // "<ApiName>.<type>-meta.xml" and lives under ".../objects/<Parent>/<group>/".
+  // The parent object comes from the PATH, not the filename.
+  const objMatch      = normalized.match(/(?:^|\/)objects\/([^/]+)\//);
+  const parentFromPath = objMatch ? objMatch[1] : '';
+  const strip = (suffix) => basename.slice(0, basename.length - suffix.length);
+
+  if (basename.endsWith('.field-meta.xml'))          return { apiName: strip('.field-meta.xml'),          parentObject: parentFromPath, metadataType: 'CustomField' };
+  if (basename.endsWith('.validationRule-meta.xml')) return { apiName: strip('.validationRule-meta.xml'), parentObject: parentFromPath, metadataType: 'ValidationRule' };
+  if (basename.endsWith('.flow-meta.xml'))           return { apiName: strip('.flow-meta.xml'),           parentObject: '',             metadataType: 'Flow' };
+  if (basename.endsWith('.cls'))                     return { apiName: strip('.cls'),                     parentObject: '',             metadataType: 'ApexClass' };
+  if (basename.endsWith('.trigger'))                 return { apiName: strip('.trigger'),                 parentObject: '',             metadataType: 'ApexTrigger' };
   return { apiName: parts[0], parentObject: '', metadataType: parts.slice(-2, -1)[0] ?? 'Unknown' };
 }
 
