@@ -34,13 +34,22 @@ const { formatDocument }  = require('./format');
 // ---------------------------------------------------------------------------
 
 function resolveMetadata(filePath) {
-  const basename = path.basename(filePath);
-  const parts    = basename.split('.');
-  if (basename.endsWith('field-meta.xml'))         return { apiName: parts[1], parentObject: parts[0], metadataType: 'CustomField' };
-  if (basename.endsWith('validationRule-meta.xml')) return { apiName: parts[1], parentObject: parts[0], metadataType: 'ValidationRule' };
-  if (basename.endsWith('flow-meta.xml'))           return { apiName: parts[0], parentObject: '',       metadataType: 'Flow' };
-  if (basename.endsWith('.cls'))                    return { apiName: parts[0], parentObject: '',       metadataType: 'ApexClass' };
-  if (basename.endsWith('.trigger'))                return { apiName: parts[0], parentObject: '',       metadataType: 'ApexTrigger' };
+  const normalized = filePath.replace(/\\/g, '/');
+  const basename   = path.basename(normalized);
+  const parts      = basename.split('.');
+
+  // Decomposed child metadata (fields, validation rules, etc.) is named
+  // "<ApiName>.<type>-meta.xml" and lives under ".../objects/<Parent>/<group>/".
+  // The parent object comes from the PATH, not the filename.
+  const objMatch      = normalized.match(/(?:^|\/)objects\/([^/]+)\//);
+  const parentFromPath = objMatch ? objMatch[1] : '';
+  const strip = (suffix) => basename.slice(0, basename.length - suffix.length);
+
+  if (basename.endsWith('.field-meta.xml'))          return { apiName: strip('.field-meta.xml'),          parentObject: parentFromPath, metadataType: 'CustomField' };
+  if (basename.endsWith('.validationRule-meta.xml')) return { apiName: strip('.validationRule-meta.xml'), parentObject: parentFromPath, metadataType: 'ValidationRule' };
+  if (basename.endsWith('.flow-meta.xml'))           return { apiName: strip('.flow-meta.xml'),           parentObject: '',             metadataType: 'Flow' };
+  if (basename.endsWith('.cls'))                     return { apiName: strip('.cls'),                     parentObject: '',             metadataType: 'ApexClass' };
+  if (basename.endsWith('.trigger'))                 return { apiName: strip('.trigger'),                 parentObject: '',             metadataType: 'ApexTrigger' };
   return { apiName: parts[0], parentObject: '', metadataType: parts.slice(-2, -1)[0] ?? 'Unknown' };
 }
 
@@ -386,6 +395,45 @@ server.tool(
 );
 
 // ---------------------------------------------------------------------------
+// MODE B — Tool 4b: compare_orgs
+// Retrieve the same package.xml from TWO orgs and diff them (server-side).
+// ---------------------------------------------------------------------------
+
+server.tool(
+  'compare_orgs',
+  'Retrieve the same set of components (defined by a package.xml) from TWO authenticated Salesforce orgs and diff them, returning MDIF blocks for components that differ. Both retrievals and the diff run server-side, so only the compact MDIF crosses into the client context -- ideal for documenting what differs between a sandbox and production without a git repo. Requires sf CLI authenticated to both orgs.',
+  {
+    sourceOrg: z.string().describe(
+      'Org alias or username for the "new" side of the diff (e.g. the sandbox with pending changes). Additions and modifications are reported relative to this org.'
+    ),
+    targetOrg: z.string().describe(
+      'Org alias or username for the "old"/baseline side of the diff (e.g. production).'
+    ),
+    packageXmlPath: z.string().describe(
+      'Absolute path to a package.xml file that defines which components to retrieve from BOTH orgs and compare.'
+    ),
+    compact: z.boolean().optional().describe(
+      'If true, omit RAW_DIFF sections and apply aggressive truncation. Recommended to minimize tokens.'
+    ),
+  },
+  async ({ sourceOrg, targetOrg, packageXmlPath, compact = false }) => {
+    try {
+      const { getChangedFilesOrgCompare } = require('./sources/orgCompare');
+      const changedFiles = getChangedFilesOrgCompare({
+        mode:           'twoOrg',
+        packageXmlPath,
+        sourceOrg,
+        targetOrg,
+      });
+      const { blocks, skipped } = buildBlocks(changedFiles);
+      return blocksToToolResult(blocks, skipped, compact);
+    } catch (err) {
+      return errorResult(`Org-to-org compare failed: ${err.message}`);
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
 // MODE B — Tool 5: get_component
 // Retrieve a single component from an org and return its MDIF representation.
 // ---------------------------------------------------------------------------
@@ -429,16 +477,22 @@ server.tool(
         '</Package>',
       ].join('\n');
 
-      const tmpDir     = path.join(os.tmpdir(), `mcp_get_${Date.now()}`);
+      // sf requires --output-dir inside the current DX project root, so the
+      // temp dir is anchored to cwd (not os.tmpdir()). Add ".metadiff-tmp" to
+      // the project's .forceignore/.gitignore so residue is never tracked.
+      const tmpDir     = path.join(process.cwd(), '.metadiff-tmp', `mcp_get_${Date.now()}`);
       const pkgXmlPath = path.join(tmpDir, 'package.xml');
       const outDir     = path.join(tmpDir, 'retrieved');
       fs.mkdirSync(tmpDir, { recursive: true });
       fs.writeFileSync(pkgXmlPath, packageXml);
 
       try {
-        execSync(
-          `sf project retrieve start --manifest "${pkgXmlPath}" --target-org "${orgAlias}" --output-dir "${outDir}"`,
-          { encoding: 'utf8', stdio: 'pipe' }
+        const { withForceignoreDisabled } = require('./sources/orgCompare');
+        withForceignoreDisabled(() =>
+          execSync(
+            `sf project retrieve start --manifest "${pkgXmlPath}" --target-org "${orgAlias}" --output-dir "${outDir}"`,
+            { encoding: 'utf8', stdio: 'pipe' }
+          )
         );
       } catch (e) {
         return errorResult(
