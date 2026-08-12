@@ -11,16 +11,20 @@ const apexParser       = require('./parsers/apex');
 const genericXml       = require('./parsers/genericXml');
 const namedElementXml  = require('./parsers/namedElementXml');
 const lwcParser       = require('./parsers/lwc');
+const flexiPageParser = require('./parsers/flexiPage');
 
 const CUSTOM_PARSER_MAP = {
-  'field-meta.xml':          { parser: fieldParser, componentType: 'Custom Field' },
-  'validationRule-meta.xml': { parser: vrParser,    componentType: 'Validation Rule' },
-  'flow-meta.xml':           { parser: flowParser,  componentType: 'Flow' },
+  'field-meta.xml':          { parser: fieldParser,     componentType: 'Custom Field' },
+  'validationRule-meta.xml': { parser: vrParser,        componentType: 'Validation Rule' },
+  'flow-meta.xml':           { parser: flowParser,      componentType: 'Flow' },
+  'flexipage-meta.xml':      { parser: flexiPageParser, componentType: 'Lightning Page' },
 };
 
 const EXTENSION_MAP = {
-  '.cls':     { parser: apexParser, componentType: 'Apex Class' },
-  '.trigger': { parser: apexParser, componentType: 'Apex Trigger' },
+  '.cls':     { parser: apexParser,     componentType: 'Apex Class' },
+  '.trigger': { parser: apexParser,     componentType: 'Apex Trigger' },
+  // Metadata-format retrieves emit a bare .flexipage (no -meta.xml suffix).
+  '.flexipage': { parser: flexiPageParser, componentType: 'Lightning Page' },
 };
 
 function getParser(filePath) {

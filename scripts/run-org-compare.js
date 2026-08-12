@@ -28,6 +28,8 @@ function resolveMetadata(filePath) {
   if (basename.endsWith('field-meta.xml'))         return { apiName: parts[1], parentObject: parts[0], metadataType: 'CustomField' };
   if (basename.endsWith('validationRule-meta.xml')) return { apiName: parts[1], parentObject: parts[0], metadataType: 'ValidationRule' };
   if (basename.endsWith('flow-meta.xml'))           return { apiName: parts[0], parentObject: '',       metadataType: 'Flow' };
+  if (basename.endsWith('flexipage-meta.xml'))      return { apiName: parts[0], parentObject: '',       metadataType: 'FlexiPage' };
+  if (basename.endsWith('.flexipage'))              return { apiName: parts[0], parentObject: '',       metadataType: 'FlexiPage' };
   if (basename.endsWith('.cls'))                    return { apiName: parts[0], parentObject: '',       metadataType: 'ApexClass' };
   if (basename.endsWith('.trigger'))                return { apiName: parts[0], parentObject: '',       metadataType: 'ApexTrigger' };
   return { apiName: parts[0], parentObject: '', metadataType: parts.slice(-2, -1)[0] ?? 'Unknown' };

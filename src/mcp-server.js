@@ -48,6 +48,8 @@ function resolveMetadata(filePath) {
   if (basename.endsWith('.field-meta.xml'))          return { apiName: strip('.field-meta.xml'),          parentObject: parentFromPath, metadataType: 'CustomField' };
   if (basename.endsWith('.validationRule-meta.xml')) return { apiName: strip('.validationRule-meta.xml'), parentObject: parentFromPath, metadataType: 'ValidationRule' };
   if (basename.endsWith('.flow-meta.xml'))           return { apiName: strip('.flow-meta.xml'),           parentObject: '',             metadataType: 'Flow' };
+  if (basename.endsWith('.flexipage-meta.xml'))      return { apiName: strip('.flexipage-meta.xml'),      parentObject: '',             metadataType: 'FlexiPage' };
+  if (basename.endsWith('.flexipage'))               return { apiName: strip('.flexipage'),               parentObject: '',             metadataType: 'FlexiPage' };
   if (basename.endsWith('.cls'))                     return { apiName: strip('.cls'),                     parentObject: '',             metadataType: 'ApexClass' };
   if (basename.endsWith('.trigger'))                 return { apiName: strip('.trigger'),                 parentObject: '',             metadataType: 'ApexTrigger' };
   return { apiName: parts[0], parentObject: '', metadataType: parts.slice(-2, -1)[0] ?? 'Unknown' };
@@ -111,6 +113,7 @@ const METADATA_TYPE_TO_SUFFIX = {
   CustomField:              'Account.MyField__c.field-meta.xml',
   ValidationRule:           'Account.MyRule.validationRule-meta.xml',
   Flow:                     'MyFlow.flow-meta.xml',
+  FlexiPage:                'MyPage.flexipage-meta.xml',
   ApexClass:                'MyClass.cls',
   ApexTrigger:              'MyTrigger.trigger',
   LightningWebComponent:    'myComponent.js',

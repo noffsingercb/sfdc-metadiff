@@ -10,7 +10,7 @@ const { execSync } = require('child_process');
 const MAX_SCALAR_LENGTH        = 500;   // normal mode
 const MAX_SCALAR_LENGTH_COMPACT = 150;  // compact mode
 const MAX_RAW_DIFF_LINES       = 30;
-const OMIT_RAW_DIFF_TYPES      = ['Flow'];
+const OMIT_RAW_DIFF_TYPES      = ['Flow', 'Lightning Page'];
 
 // The marker tells the LLM exactly how much was cut so it can request more.
 function truncateValue(str, compact = false) {

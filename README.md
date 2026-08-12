@@ -320,6 +320,7 @@ Structurally unique types with hand-built parsers.
 | Flow                    | `*.flow-meta.xml`                     | `parsers/flow.js`           | Named-element graph; 14 element types     |
 | Apex Class              | `*.cls`                               | `parsers/apex.js`           | Regex-based; methods, SOQL, DML           |
 | Apex Trigger            | `*.trigger`                           | `parsers/apex.js`           | Shared parser with Apex Class             |
+| Lightning Page          | `*.flexipage-meta.xml`, `*.flexipage` | `parsers/flexiPage.js`      | Facet graph resolved to readable paths    |
 | Lightning Web Component | `lwc/**/*.js`, `lwc/**/*.js-meta.xml` | `parsers/lwc.js`            | Path-routed; handles JS source + meta XML |
 
 ### Tier 2 -- Named-Element XML (parsers/namedElementXml.js)
@@ -409,7 +410,8 @@ to minimize token cost.
 
 - Scalar values are capped at 500 characters with a `[TRUNCATED -- X chars total]` marker
 - `RAW_DIFF` is capped at 30 lines with a count of omitted lines
-- Flows omit `RAW_DIFF` entirely by default -- semantic changes are the primary signal
+- Flows and Lightning Pages omit `RAW_DIFF` entirely by default -- semantic changes
+  are the primary signal
 - `RAW_SOURCE` for NEW blocks is capped at 60 lines
 - Every truncation includes a marker so the LLM knows exactly what was cut
 
@@ -448,11 +450,27 @@ to minimize token cost.
 - `@wire` configuration objects (second argument) are not diffed -- only the
   adapter identifier is tracked.
 
+### parsers/flexiPage.js
+- Placements are keyed on `<what> @ <containment path>`, so moving a field to a
+  different section reads as a REMOVED plus an ADDED, not a MODIFIED.
+- Path segments come from a component's `label`/`title` property. Renaming a
+  section relabels every placement beneath it, so one rename can surface as a
+  batch of ADDED/REMOVED pairs.
+- Facet-pointer properties are dropped from component output because their values
+  are GUIDs that churn on every edit. The referenced facet is diffed separately.
+- Org API version drift is reported as real change. Comparing a sandbox against a
+  production org on an older release surfaces MODIFIED components for properties
+  Salesforce added on its own (e.g. `hideSlackAction` on `force:highlightsPanel`)
+  that no one authored.
+- Column components (`flexipage:column`) are treated as pure scaffolding and are
+  never reported on their own -- only through what they contain.
+
 ### parsers/namedElementXml.js
 - Rule criteria within AssignmentRules, AutoResponseRules, and EscalationRules
   are not diffed. Only the active flag is tracked. Criteria changes appear in
   raw diff only.
-- Flexipage / CustomObject are not yet supported (planned for a future milestone).
+- CustomObject is not yet supported (planned for a future milestone).
+  Flexipage is handled by its own Tier 3 parser (`parsers/flexiPage.js`).
 
 ### parsers/genericXml.js
 - Any scalar field not listed in a type's `scalarKeys` config is silently ignored.
@@ -552,6 +570,7 @@ The `blocks` array has the same shape produced by `format.js`. See
     |   |   |-- flow.js               Tier 3 -- Flows (named-element graph)
     |   |   |-- apex.js               Tier 3 -- Apex Classes + Triggers
     |   |   |-- lwc.js                Tier 3 -- Lightning Web Components
+    |   |   |-- flexiPage.js          Tier 3 -- Lightning Pages (facet graph)
     |   |   |-- genericXml.js         Tier 1 -- Config-driven flat scalar XML (16 types)
     |   |   `-- namedElementXml.js    Tier 2 -- Config-driven named sub-element XML (7 types)
     |   |-- sources/
