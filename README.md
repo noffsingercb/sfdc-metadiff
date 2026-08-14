@@ -573,6 +573,7 @@ The `blocks` array has the same shape produced by `format.js`. See
     |   |   |-- flexiPage.js          Tier 3 -- Lightning Pages (facet graph)
     |   |   |-- genericXml.js         Tier 1 -- Config-driven flat scalar XML (16 types)
     |   |   `-- namedElementXml.js    Tier 2 -- Config-driven named sub-element XML (7 types)
+    |   |-- resolveMetadata.js       Shared file-path -> apiName/parent/type resolution
     |   |-- sources/
     |   |   |-- sfdxGitDelta.js       Source -- sgd-based change detection
     |   |   |-- orgCompare.js         Source -- sf CLI retrieve; org vs org/local/git

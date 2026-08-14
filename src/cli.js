@@ -28,27 +28,7 @@ const repoRoot   = process.cwd();
 // resolveMetadata -- derives API name, parent object, and metadata type
 // from a Salesforce metadata filename.
 // ---------------------------------------------------------------------------
-function resolveMetadata(filePath) {
-  const normalized = filePath.replace(/\\/g, '/');
-  const basename   = path.basename(normalized);
-  const parts      = basename.split('.');
-
-  // Decomposed child metadata (fields, validation rules, etc.) is named
-  // "<ApiName>.<type>-meta.xml" and lives under ".../objects/<Parent>/<group>/".
-  // The parent object comes from the PATH, not the filename.
-  const objMatch      = normalized.match(/(?:^|\/)objects\/([^/]+)\//);
-  const parentFromPath = objMatch ? objMatch[1] : '';
-  const strip = (suffix) => basename.slice(0, basename.length - suffix.length);
-
-  if (basename.endsWith('.field-meta.xml'))          return { apiName: strip('.field-meta.xml'),          parentObject: parentFromPath, metadataType: 'CustomField' };
-  if (basename.endsWith('.validationRule-meta.xml')) return { apiName: strip('.validationRule-meta.xml'), parentObject: parentFromPath, metadataType: 'ValidationRule' };
-  if (basename.endsWith('.flow-meta.xml'))           return { apiName: strip('.flow-meta.xml'),           parentObject: '',             metadataType: 'Flow' };
-  if (basename.endsWith('.flexipage-meta.xml'))      return { apiName: strip('.flexipage-meta.xml'),      parentObject: '',             metadataType: 'FlexiPage' };
-  if (basename.endsWith('.flexipage'))               return { apiName: strip('.flexipage'),               parentObject: '',             metadataType: 'FlexiPage' };
-  if (basename.endsWith('.cls'))                     return { apiName: strip('.cls'),                     parentObject: '',             metadataType: 'ApexClass' };
-  if (basename.endsWith('.trigger'))                 return { apiName: strip('.trigger'),                 parentObject: '',             metadataType: 'ApexTrigger' };
-  return { apiName: parts[0], parentObject: '', metadataType: parts.slice(-2, -1)[0] ?? 'Unknown' };
-}
+const { resolveMetadata } = require('./resolveMetadata');
 
 // ---------------------------------------------------------------------------
 // buildSemanticChanges -- calls parser.parse() for NEW/DELETED,
