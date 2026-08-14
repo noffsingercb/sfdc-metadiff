@@ -55,10 +55,19 @@ function buildSemanticChanges(status, parser, oldContent, newContent, filePath) 
 // Build MDIF blocks from a list of changed files (the standard pipeline step).
 function buildBlocks(changedFiles) {
   const blocks  = [];
+  const unparsed = [];
   let skipped = 0;
   for (const file of changedFiles) {
     const config = getParser(file.filePath);
-    if (!config) { skipped++; continue; }
+    if (!config) {
+      skipped++;
+      // Record WHAT was dropped. A type with no parser is otherwise
+      // indistinguishable from a genuine no-change, which has silently
+      // passed undocumented changes through as "nothing changed".
+      const { apiName, parentObject, metadataType } = resolveMetadata(file.filePath);
+      unparsed.push(`${metadataType}: ${parentObject ? parentObject + '.' : ''}${apiName}`);
+      continue;
+    }
     const { parser, componentType } = config;
     const { apiName, parentObject, metadataType } = resolveMetadata(file.filePath);
     const statusLabel     = file.status === 'A' ? 'NEW' : file.status === 'D' ? 'DELETED' : 'MODIFIED';
@@ -67,16 +76,30 @@ function buildBlocks(changedFiles) {
     blocks.push({ changeType: statusLabel, apiName, parentObject, componentType, metadataType,
       semanticChanges, oldContent: file.oldContent, newContent: file.newContent });
   }
-  return { blocks, skipped };
+  return { blocks, skipped, unparsed };
+}
+
+// Renders the "these members had no parser" notice, or '' when there were none.
+function unparsedNotice(unparsed = []) {
+  if (!unparsed.length) return '';
+  return `UNPARSED: ${unparsed.length} component(s) differed but have no parser, ` +
+         `so they were NOT diffed. Verify them by hand:\n` +
+         unparsed.map((u) => `  ${u}`).join('\n');
 }
 
 // Format blocks into an MDIF document string and return as MCP tool result.
-function blocksToToolResult(blocks, skipped, compact = false) {
+function blocksToToolResult(blocks, skipped, compact = false, unparsed = []) {
+  const notice = unparsedNotice(unparsed);
   if (blocks.length === 0) {
-    return { content: [{ type: 'text', text: 'No semantic changes detected in the provided content.' }] };
+    // Never report a bare "no changes" when something was silently dropped --
+    // the caller cannot tell the two apart, and has repeatedly been misled.
+    const text = notice
+      ? `${notice}\n\nNo semantic changes detected among the parseable components.`
+      : 'No semantic changes detected in the provided content.';
+    return { content: [{ type: 'text', text }] };
   }
   const doc = formatDocument(blocks, { compact, skippedCount: skipped });
-  return { content: [{ type: 'text', text: doc }] };
+  return { content: [{ type: 'text', text: notice ? `${notice}\n\n${doc}` : doc }] };
 }
 
 // Return a structured error result.
@@ -106,6 +129,7 @@ const METADATA_TYPE_TO_SUFFIX = {
   SharingRules:             'Account.sharingRules-meta.xml',
   CustomLabel:              'CustomLabels.labels-meta.xml',
   RecordType:               'Account.Premium.recordType-meta.xml',
+  ReportType:               'MyReportType.reportType-meta.xml',
   GlobalValueSet:           'MyPicklist.globalValueSet-meta.xml',
   QuickAction:              'Account.NewCase.quickAction-meta.xml',
   CustomPermission:         'MyPermission.customPermission-meta.xml',
@@ -330,8 +354,8 @@ server.tool(
     try {
       const { getChangedFilesByRef } = require('./git');
       const changedFiles = getChangedFilesByRef(repoPath, { from: fromRef, to: toRef });
-      const { blocks, skipped } = buildBlocks(changedFiles);
-      return blocksToToolResult(blocks, skipped, compact);
+      const { blocks, skipped, unparsed } = buildBlocks(changedFiles);
+      return blocksToToolResult(blocks, skipped, compact, unparsed);
     } catch (err) {
       return errorResult(`Git diff failed: ${err.message}`);
     }
@@ -369,8 +393,8 @@ server.tool(
         sourceOrg:      orgAlias,
         localProjectDir: projectDir || process.cwd(),
       });
-      const { blocks, skipped } = buildBlocks(changedFiles);
-      return blocksToToolResult(blocks, skipped, compact);
+      const { blocks, skipped, unparsed } = buildBlocks(changedFiles);
+      return blocksToToolResult(blocks, skipped, compact, unparsed);
     } catch (err) {
       return errorResult(`Org compare failed: ${err.message}`);
     }
@@ -408,8 +432,8 @@ server.tool(
         sourceOrg,
         targetOrg,
       });
-      const { blocks, skipped } = buildBlocks(changedFiles);
-      return blocksToToolResult(blocks, skipped, compact);
+      const { blocks, skipped, unparsed } = buildBlocks(changedFiles);
+      return blocksToToolResult(blocks, skipped, compact, unparsed);
     } catch (err) {
       return errorResult(`Org-to-org compare failed: ${err.message}`);
     }
@@ -513,9 +537,9 @@ server.tool(
         newContent: fs.readFileSync(filePath, 'utf8'),
       }));
 
-      const { blocks, skipped } = buildBlocks(changedFiles);
+      const { blocks, skipped, unparsed } = buildBlocks(changedFiles);
 
-      return blocksToToolResult(blocks, skipped, compact);
+      return blocksToToolResult(blocks, skipped, compact, unparsed);
 
     } catch (err) {
       return errorResult(err.message);

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Account</baseObject>
+    <category>accounts</category>
+    <deployed>true</deployed>
+    <description>Accounts with their related signal records, for Account filtering.</description>
+    <label>Accounts with Signals</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>NAME</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Signal_Score__c</field>
+            <table>Account.Signals__r</table>
+        </columns>
+        <masterLabel>Accounts</masterLabel>
+        <name>Accounts</name>
+    </sections>
+</ReportType>

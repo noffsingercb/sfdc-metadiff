@@ -349,6 +349,7 @@ Config-driven. Types with flat scalar fields.
 | Public Group         | `*.group-meta.xml`                  |
 | Custom Tab           | `*.tab-meta.xml`                    |
 | Record Type          | `*.recordType-meta.xml`             |
+| Report Type          | `*.reportType-meta.xml`             |
 | Business Process     | `*.businessProcess-meta.xml`        |
 | Sharing Reason       | `*.sharingReason-meta.xml`          |
 | Compact Layout       | `*.compactLayout-meta.xml`          |
@@ -360,7 +361,9 @@ Config-driven. Types with flat scalar fields.
 | External Data Source | `*.externalDataSource-meta.xml`     |
 | Milestone Type       | `*.milestoneType-meta.xml`          |
 
-All other file types are skipped silently.
+All other file types are skipped. The MCP tools name what was dropped in an
+`UNPARSED:` notice rather than reporting a bare "no semantic changes" — see
+*Unsupported types are reported, not swallowed* below.
 
 ---
 
@@ -419,8 +422,22 @@ to minimize token cost.
 
 ## Known Limitations
 
+### Unsupported types are reported, not swallowed
+A metadata type with no parser used to be dropped silently, so the result was
+`"No semantic changes detected"` — indistinguishable from a genuine no-change.
+Real pending changes were signed off as "nothing changed" that way. The MCP
+tools now prefix their result with the components they could not parse:
+
+    UNPARSED: 1 component(s) differed but have no parser, so they were NOT
+    diffed. Verify them by hand:
+      Layout: Account-Account_Layout
+
+    No semantic changes detected among the parseable components.
+
+The CLI (`src/cli.js`) still reports a skip count only.
+
 ### All parsers
-- Files with no supported parser are skipped silently.
+- Files with no supported parser are not diffed; only the raw file is available.
 - Manual mode compares by filename only -- files must have the same name in both
   directories to be diffed as MODIFIED (otherwise they appear as DELETED + NEW).
 
@@ -473,6 +490,11 @@ to minimize token cost.
   Flexipage is handled by its own Tier 3 parser (`parsers/flexiPage.js`).
 
 ### parsers/genericXml.js
+- **Report Type**: only top-level scalars are diffed (`label`, `description`,
+  `category`, `baseObject`, `deployed`, `join`). Column and section detail lives
+  in nested `<sections><columns>` elements, which Tier 1 does not model — adding
+  or removing a report column shows in `RAW_DIFF` but produces no semantic
+  change. Promoting Report Type to a Tier 3 parser would fix this.
 - Any scalar field not listed in a type's `scalarKeys` config is silently ignored.
   Add it to the config if you need it.
 

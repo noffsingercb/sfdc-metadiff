@@ -30,7 +30,17 @@ function resolveMetadata(filePath) {
   if (basename.endsWith('.flexipage'))               return { apiName: strip('.flexipage'),               parentObject: '',             metadataType: 'FlexiPage' };
   if (basename.endsWith('.cls'))                     return { apiName: strip('.cls'),                     parentObject: '',             metadataType: 'ApexClass' };
   if (basename.endsWith('.trigger'))                 return { apiName: strip('.trigger'),                 parentObject: '',             metadataType: 'ApexTrigger' };
-  return { apiName: parts[0], parentObject: '', metadataType: parts.slice(-2, -1)[0] ?? 'Unknown' };
+  // Fallback for config-driven types (Tier 1/2) that have no explicit case
+  // above. The token before ".xml" is the suffix, e.g. "reportType-meta" --
+  // strip the "-meta" and upper-case the first letter so the MDIF reports
+  // "ReportType" rather than the raw filename fragment "reportType-meta".
+  const suffixToken = parts.slice(-2, -1)[0] ?? '';
+  const typeToken   = suffixToken.replace(/-meta$/, '');
+  const metadataType = typeToken
+    ? typeToken.charAt(0).toUpperCase() + typeToken.slice(1)
+    : 'Unknown';
+
+  return { apiName: parts[0], parentObject: '', metadataType };
 }
 
 module.exports = { resolveMetadata };

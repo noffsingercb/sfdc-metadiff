@@ -57,6 +57,21 @@ const CONFIGS = {
     picklistKeys: [],
   },
 
+  // Column/section detail lives in nested <sections><columns> elements, which
+  // Tier 1 does not model -- see the known-limitations note in README.md.
+  // Scalars alone still distinguish a NEW report type from a genuine no-change,
+  // which is the failure this was added to fix.
+  'ReportType': {
+    typeName: 'Report Type',
+    rootTag: 'ReportType',
+    scalarKeys: [
+      'label', 'description', 'category', 'baseObject',
+      'deployed', 'join',
+    ],
+    listKeys: [],
+    picklistKeys: [],
+  },
+
   'RecordType': {
     typeName: 'Record Type',
     rootTag: 'RecordType',
@@ -169,6 +184,7 @@ const SUFFIX_MAP = {
   'group-meta.xml':              'Group',
   'tab-meta.xml':                'CustomTab',
   'recordType-meta.xml':         'RecordType',
+  'reportType-meta.xml':         'ReportType',
   'businessProcess-meta.xml':    'BusinessProcess',
   'sharingReason-meta.xml':      'SharingReason',
   'compactLayout-meta.xml':      'CompactLayout',
