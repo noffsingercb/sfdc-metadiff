@@ -1,7 +1,8 @@
 // src/parsers/validationRule.js
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const parser = new XMLParser({ ignoreAttributes: false });
+const parser = new XMLParser({ ignoreAttributes: false, ...ENTITY_LIMIT_OPTS });
 
 const SCALAR_KEYS = [
   'active', 'description', 'errorConditionFormula',

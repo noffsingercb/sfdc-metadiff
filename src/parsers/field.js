@@ -1,7 +1,8 @@
 // src/parsers/field.js
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
+const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true, ...ENTITY_LIMIT_OPTS });
 
 // Scalar keys that carry meaningful semantic changes
 const SCALAR_KEYS = [

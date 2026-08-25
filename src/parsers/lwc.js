@@ -4,8 +4,9 @@
 // Routed by path (/lwc/ directory) rather than suffix — .js is not unique.
 
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
+const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: true, ...ENTITY_LIMIT_OPTS });
 
 // ---------------------------------------------------------------------------
 // Regex patterns for .js source files

@@ -12,8 +12,9 @@
 // "which fields/components are on the page, where, and under what visibility rule".
 
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
+const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true, ...ENTITY_LIMIT_OPTS });
 
 const TOP_LEVEL_SCALARS = ['masterLabel', 'type', 'sobjectType', 'parentFlexiPage', 'description'];
 

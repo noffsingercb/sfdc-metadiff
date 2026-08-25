@@ -3,8 +3,9 @@
 // To add a type: add a CONFIGS entry + a SUFFIX_MAP entry. No other changes needed.
 
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
+const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: true, ...ENTITY_LIMIT_OPTS });
 
 const CONFIGS = {
 
@@ -52,6 +53,21 @@ const CONFIGS = {
       'label', 'motif', 'scontrol', 'auraComponent', 'lwcComponent',
       'frameHeight', 'hasSidebar', 'customObject', 'page', 'url',
       'urlEncodingKey', 'description',
+    ],
+    listKeys: [],
+    picklistKeys: [],
+  },
+
+  // Column/section detail lives in nested <sections><columns> elements, which
+  // Tier 1 does not model -- see the known-limitations note in README.md.
+  // Scalars alone still distinguish a NEW report type from a genuine no-change,
+  // which is the failure this was added to fix.
+  'ReportType': {
+    typeName: 'Report Type',
+    rootTag: 'ReportType',
+    scalarKeys: [
+      'label', 'description', 'category', 'baseObject',
+      'deployed', 'join',
     ],
     listKeys: [],
     picklistKeys: [],
@@ -169,6 +185,7 @@ const SUFFIX_MAP = {
   'group-meta.xml':              'Group',
   'tab-meta.xml':                'CustomTab',
   'recordType-meta.xml':         'RecordType',
+  'reportType-meta.xml':         'ReportType',
   'businessProcess-meta.xml':    'BusinessProcess',
   'sharingReason-meta.xml':      'SharingReason',
   'compactLayout-meta.xml':      'CompactLayout',
