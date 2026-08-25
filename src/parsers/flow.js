@@ -3,8 +3,9 @@
 // Follows the same parse()/diff() contract as field.js and validationRule.js.
 
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
+const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true, ...ENTITY_LIMIT_OPTS });
 
 // ---------------------------------------------------------------------------
 // Top-level scalar keys tracked for semantic changes

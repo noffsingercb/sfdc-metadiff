@@ -3,6 +3,7 @@
 // To add a type: add the tag(s) to ALWAYS_ARRAY_TAGS, add a CONFIGS entry + SUFFIX_MAP entry.
 
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
 // fast-xml-parser returns an object (not array) when only one instance of a
 // repeating tag is present. ALWAYS_ARRAY_TAGS forces array for all named
@@ -22,6 +23,7 @@ const xmlParser = new XMLParser({
   ignoreAttributes: false,
   parseTagValue: true,
   isArray: (tagName) => ALWAYS_ARRAY_TAGS.has(tagName),
+  ...ENTITY_LIMIT_OPTS,
 });
 
 const CONFIGS = {

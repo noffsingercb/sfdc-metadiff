@@ -3,8 +3,9 @@
 // To add a type: add a CONFIGS entry + a SUFFIX_MAP entry. No other changes needed.
 
 const { XMLParser } = require('fast-xml-parser');
+const { ENTITY_LIMIT_OPTS } = require('../xmlParserLimits');
 
-const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
+const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: true, ...ENTITY_LIMIT_OPTS });
 
 const CONFIGS = {
 

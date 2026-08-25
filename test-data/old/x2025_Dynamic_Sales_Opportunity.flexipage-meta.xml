@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>2025 Dynamic Sales Opportunity</masterLabel>
+    <type>RecordPage</type>
+    <sobjectType>Opportunity</sobjectType>
+    
+    <flexiPageRegions>
+      <name>main</name>
+      <type>Facet</type>
+      
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 0: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 1: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 2: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 3: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 4: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 5: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 6: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 7: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 8: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 9: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 10: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 11: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 12: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 13: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 14: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 15: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 16: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 17: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 18: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 19: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 20: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 21: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 22: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 23: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 24: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 25: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 26: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 27: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 28: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 29: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 30: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 31: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 32: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 33: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 34: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 35: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 36: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 37: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 38: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 39: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 40: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 41: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 42: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 43: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 44: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 45: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 46: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 47: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 48: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 49: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 50: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 51: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 52: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 53: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 54: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 55: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 56: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 57: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 58: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+        <itemInstances>
+          <componentInstance>
+            <componentName>flexipage:richText</componentName>
+            <componentInstanceProperties><name>richTextValue</name><value>&lt;p&gt;Note 59: &quot;quarterly target&quot; is &lt;b&gt;critical&lt;/b&gt; this cycle.&lt;/p&gt;</value></componentInstanceProperties>
+          </componentInstance>
+        </itemInstances>
+    </flexiPageRegions>
+</FlexiPage>

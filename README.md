@@ -440,6 +440,18 @@ The CLI (`src/cli.js`) still reports a skip count only.
 - Files with no supported parser are not diffed; only the raw file is available.
 - Manual mode compares by filename only -- files must have the same name in both
   directories to be diffed as MODIFIED (otherwise they appear as DELETED + NEW).
+- **Entity expansion ceiling (src/xmlParserLimits.js):** every fast-xml-parser
+  instance shares a raised cap of 10,000 entity references per document
+  (`&lt;`, `&gt;`, `&quot;`, `&apos;`, numeric char refs -- **not** `&amp;`,
+  which fast-xml-parser handles on a separate, uncounted path). The library's
+  default of 1,000 is tuned for arbitrary untrusted XML and rejects large but
+  legitimate Salesforce metadata: a FlexiPage with an HTML rich-text component
+  (`&lt;p&gt;...&lt;/p&gt;`) crosses it easily. GTM-0376 hit this on a large
+  Lightning page and failed with `Entity expansion limit exceeded: 1028 > 1000`.
+  The cap is raised, not disabled -- a real decompression-bomb-shaped document
+  still throws, just past a much higher bar. If a legitimate component ever
+  exceeds 10,000, raise `maxTotalExpansions` in that one file rather than
+  removing the guard.
 
 ### parsers/flow.js
 - The `description` field is often used as a running changelog and can be very long.
